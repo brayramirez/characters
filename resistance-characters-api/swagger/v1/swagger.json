@@ -1,0 +1,541 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/games": {
+      "post": {
+        "summary": "Create a game",
+        "tags": [
+          "Games"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "game",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "game created"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/games/{id}": {
+      "get": {
+        "summary": "Retrieves a game",
+        "tags": [
+          "Games"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "game found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "games": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "commander": {
+                      "type": "boolean"
+                    },
+                    "false_commander": {
+                      "type": "boolean"
+                    },
+                    "bodyguard": {
+                      "type": "boolean"
+                    },
+                    "blind_spy": {
+                      "type": "boolean"
+                    },
+                    "deep_cover": {
+                      "type": "boolean"
+                    },
+                    "host_id": {
+                      "type": "integer"
+                    },
+                    "is_owner": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "games"
+              ]
+            }
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "player not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Updates a game",
+        "tags": [
+          "Games"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "game",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "commander": {
+                  "type": "boolean"
+                },
+                "false_commander": {
+                  "type": "boolean"
+                },
+                "bodyguard": {
+                  "type": "boolean"
+                },
+                "blind_spy": {
+                  "type": "boolean"
+                },
+                "deep_cover": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "name",
+                "commander",
+                "false_commander",
+                "bodyguard",
+                "blind_spy",
+                "deep_cover"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player updated"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/games/{id}/start": {
+      "put": {
+        "summary": "Starts a game",
+        "tags": [
+          "Games"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "game updated"
+          },
+          "422": {
+            "description": "minimum number of players not met"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/games/{id}/end": {
+      "put": {
+        "summary": "Ends a game",
+        "tags": [
+          "Games"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "game updated"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/games/{id}/join": {
+      "post": {
+        "summary": "Join current signed in player",
+        "tags": [
+          "Games"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player joined"
+          },
+          "422": {
+            "description": "maximum players reached"
+          }
+        }
+      }
+    },
+    "/api/v1/games/{id}/disconnect": {
+      "delete": {
+        "summary": "Player disconnected from game",
+        "tags": [
+          "Games"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player not connected in the first place"
+          }
+        }
+      }
+    },
+    "/api/v1/players": {
+      "post": {
+        "summary": "Create a player",
+        "tags": [
+          "Players"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "player",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player created"
+          }
+        }
+      }
+    },
+    "/api/v1/players/{id}": {
+      "get": {
+        "summary": "Retrieves a player",
+        "tags": [
+          "Players"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "players": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "players"
+              ]
+            }
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "player not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Updates a player",
+        "tags": [
+          "Players"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "player",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player updated"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "summary": "Login player",
+        "tags": [
+          "Players"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "session",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "player logged in"
+          },
+          "404": {
+            "description": "player not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  }
+}
