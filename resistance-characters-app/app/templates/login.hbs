@@ -1,0 +1,9 @@
+<h1>Login Page</h1>
+
+<form {{action 'authenticate' on='submit'}}>
+  <label for="code">Player code</label>
+  {{input id='code' placeholder='Player code' value=code}}
+  <button type="submit">Login</button>
+</form>
+
+{{register-form onSave="createPlayer"}}
